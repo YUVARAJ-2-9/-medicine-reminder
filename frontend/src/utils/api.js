@@ -1,24 +1,31 @@
-import axios from 'axios'
+import axios from "axios"
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api'
+  baseURL: "https://medicine-reminder-backend-o1cj.onrender.com/api"
+  // ↑ Unga Render URL paste pannu! localhost illa!
 })
 
 API.interceptors.request.use((req) => {
-  const user = localStorage.getItem('user')
-  if (user) {
-    req.headers.Authorization = `Bearer ${JSON.parse(user).token}`
+  const stored = localStorage.getItem("user")
+  if (stored) {
+    try {
+      const user = JSON.parse(stored)
+      if (user?.token) {
+        req.headers.Authorization = `Bearer ${user.token}`
+      }
+    } catch {
+      localStorage.removeItem("user")
+    }
   }
   return req
 })
 
-// Response error handler
 API.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('user')
-      window.location.href = '/login'
+      localStorage.removeItem("user")
+      window.location.href = "/login"
     }
     return Promise.reject(error)
   }
