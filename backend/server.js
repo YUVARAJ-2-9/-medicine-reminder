@@ -10,13 +10,17 @@ connectDB()
 const app = express()
 
 // CORS - Vercel URL add pannuvom
+
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://medicine-reminder-two.vercel.app'
+    'https://medicine-reminder-two.vercel.app',
+    'https://medremainder.vercel.app'
   ],
   credentials: true
 }))
+
+app.use(cors())
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
