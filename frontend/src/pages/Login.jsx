@@ -168,7 +168,7 @@ export default function Login() {
           </motion.button>
 
           <p className="text-center text-sm text-gray-400">
-            Account illaya?{" "}
+            Register Here?{" "}
             <Link to="/register"
               className="font-semibold"
               style={{ color: "#C4956A" }}>
